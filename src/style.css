@@ -1,0 +1,14 @@
+.message-list {
+    list-style: none;
+    border: 1px solid #ccc;
+    width: 300px;
+    height: 400px;
+    overflow: auto;
+    padding: 0;
+}
+
+.message {
+    max-width: 250px;
+    white-space: pre-wrap;
+    word-break: break-all;
+}
