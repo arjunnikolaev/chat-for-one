@@ -5,7 +5,7 @@ function MessageList(props) {
     return(
         <ul className="message-list">{props.messageList.length ? props.messageList.map((msg, index) =>
             <li key={index}>
-                <p className="message"><b>{msg.username}</b><br/>
+                <p className={'message message_' + msg.side}><b>{msg.username}</b><br/>
                     {msg.message}</p>
             </li>
         ) :

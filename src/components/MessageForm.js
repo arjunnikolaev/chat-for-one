@@ -11,12 +11,27 @@ class MessageForm extends React.Component {
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.chooseSide = this.chooseSide.bind(this);
+    }
+
+    chooseSide(name) {
+        let list = this.props.messageList;
+        if(list.length) {
+            let firstMsg = list.find((item) => item.username === name);
+            if(firstMsg) {
+                return firstMsg.side;
+            } else {
+                return list[list.length - 1].side === 'left' ? 'right' : 'left';
+            }
+        }
+        return 'left';
     }
 
     handleSubmit(e) {
         e.preventDefault();
         if(this.state.username && this.state.message) {
-            this.props.addMessage({username: this.state.username, message: this.state.message});
+            let side = this.chooseSide(this.state.username);
+            this.props.addMessage({username: this.state.username, message: this.state.message, side: side});
             this.setState({
                 username: '',
                 message: '',
@@ -41,24 +56,25 @@ class MessageForm extends React.Component {
                         Name:
                     </label>
                     <br/>
-                    <input type="text" name="username" id='username' value={this.state.username} onChange={this.handleChange}/>
+                    <input className='input-field' type="text" name="username" id='username' value={this.state.username} onChange={this.handleChange}/>
                 </p>
                 <p>
                     <label htmlFor="message">
                         Message:
                     </label>
                     <br/>
-                    <textarea rows='5' cols='45' id='message' name="message" value={this.state.message} onChange={this.handleChange}></textarea>
+                    <textarea className='input-field' rows='5' cols='35' id='message' name="message" value={this.state.message} onChange={this.handleChange}></textarea>
                 </p>
-                <input type="submit" value="Send"/>
-
+                <input className='btn' type="submit" value="Send"/>
+                {this.props.messageList.length ? <button className='btn' onClick={this.props.clearMessages}>Clear</button> : null}
+                <p>{this.state.error || null}</p>
             </form>
         )
     }
 }
 
 MessageForm.propTypes = {
-    listLength: PropTypes.number.isRequired,
+    messageList: PropTypes.array.isRequired,
     addMessage: PropTypes.func.isRequired,
     clearMessages: PropTypes.func.isRequired
 };

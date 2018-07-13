@@ -13,7 +13,7 @@ class AppContainer extends React.Component {
             <div>
                 <ChatHeader/>
                 <MessageList messageList={this.props.messageList}/>
-                <MessageForm addMessage={this.props.addMessage} listLength={this.props.messageList.length} clearMessages={this.props.clearMessages}/>
+                <MessageForm addMessage={this.props.addMessage} messageList={this.props.messageList} clearMessages={this.props.clearMessages}/>
             </div>
         );
     }
