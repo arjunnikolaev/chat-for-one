@@ -5,6 +5,7 @@ function ChatHeader(props) {
         <div>
             <h1>ChatForOne</h1>
             <p>Welcome to the chat!</p>
+            <p>{props.time}</p>
         </div>
     );
 }

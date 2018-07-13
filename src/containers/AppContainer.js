@@ -8,10 +8,32 @@ import * as selectors from '../ducks/msg/selectors';
 import * as actions from '../ducks/msg/actions';
 
 class AppContainer extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            time: new Date().toLocaleTimeString()
+        };
+        this.tick = this.tick.bind(this);
+    }
+
+    componentDidMount() {
+        this.timeId = setInterval(this.tick, 1000);
+    }
+
+    componentWillUnmount() {
+        clearTimeout(this.timeId);
+    }
+
+    tick() {
+        this.setState({
+            time: new Date().toLocaleTimeString()
+        });
+    }
+
     render() {
         return (
             <div>
-                <ChatHeader/>
+                <ChatHeader time={this.state.time}/>
                 <MessageList messageList={this.props.messageList}/>
                 <MessageForm addMessage={this.props.addMessage} messageList={this.props.messageList} clearMessages={this.props.clearMessages}/>
             </div>

@@ -25,21 +25,41 @@ module.exports = {
     module: {
         strictExportPresence: true,
         rules: [{
-            oneOf: [{
-                test: /\.js$/,
-                exclude: /(node_modules)/,
-                use: {
-                    loader: 'babel-loader',
-                    options: {  presets: ['es2015', 'react'],  plugins: ["transform-object-rest-spread"], cacheDirectory: true  }
-                }
-            },
+            oneOf: [
+                {
+                    test: /\.js$/,
+                    exclude: /(node_modules)/,
+                    use: {
+                        loader: 'babel-loader',
+                        options: {  presets: ['es2015', 'react'],  plugins: ["transform-object-rest-spread"], cacheDirectory: true  }
+                    }
+                },
                 {
                     test: /\.css$/,
                     use: ExtractTextPlugin.extract({
                         fallback: 'style-loader',
                         use: 'css-loader',
                     }),
-                }],
+                },
+                {
+                    test: /\.sass$/,
+                    use: [{
+                        loader: "style-loader" // creates style nodes from JS strings
+                    }, {
+                        loader: "css-loader" // translates CSS into CommonJS
+                    }, {
+                        loader: "sass-loader" // compiles Sass to CSS
+                    }]
+                },
+                {
+                    test: /\.(jpg|png|svg|ico)$/,
+                    loader: 'file-loader',
+                    options: {
+                        name: 'images/[name].[ext]'
+                    }
+                }
+
+            ],
         }],
     },
     devServer: {

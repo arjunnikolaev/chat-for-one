@@ -65,8 +65,19 @@ class MessageForm extends React.Component {
                     <br/>
                     <textarea className='input-field' rows='5' cols='35' id='message' name="message" value={this.state.message} onChange={this.handleChange}></textarea>
                 </p>
-                <input className='btn' type="submit" value="Send"/>
-                {this.props.messageList.length ? <button className='btn' onClick={this.props.clearMessages}>Clear</button> : null}
+                <div className='buttons'>
+                    <button className='btn' type="submit">
+                        <span>Send</span>
+                        <img width='20' height='20' src={require('../media/mail.png')}/>
+                    </button>
+                    {this.props.messageList.length
+                        ?
+                        <button className='btn' onClick={this.props.clearMessages}>
+                            <span>Clear</span>
+                            <img width='20' height='20' src={require('../media/del.png')}/>
+                        </button>
+                        : null}
+                </div>
                 <p>{this.state.error || null}</p>
             </form>
         )
