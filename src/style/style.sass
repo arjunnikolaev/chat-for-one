@@ -26,6 +26,7 @@ body
         position: relative
 
 .message
+    margin-top: 15px
     padding: 2%
     max-width: 80%
     white-space: pre-wrap
@@ -41,15 +42,14 @@ body
         border-left: 7px solid transparent
         border-right: 7px solid transparent
         border-top: 14px solid lightsteelblue
-
     &.message_left
         +my-margin(0, auto)
 
         &::after
-            left: 5%
+            left: 7%
 
     &.message_right
         +my-margin(auto, 0)
 
         &::after
-            right: 5%
+            right: 7%
