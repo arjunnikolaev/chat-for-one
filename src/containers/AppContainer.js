@@ -6,10 +6,11 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import * as selectors from '../ducks/msg/selectors';
 import * as actions from '../ducks/msg/actions';
+import {enableListFetching, addMsg } from "../config";
 
 class AppContainer extends React.Component {
-    constructor(props) {
-        super(props);
+    constructor() {
+        super();
         this.state = {
             time: new Date().toLocaleTimeString()
         };
@@ -17,6 +18,7 @@ class AppContainer extends React.Component {
     }
 
     componentDidMount() {
+        enableListFetching(this.props.fetchMessages);
         this.timeId = setInterval(this.tick, 1000);
     }
 
@@ -35,7 +37,7 @@ class AppContainer extends React.Component {
             <div>
                 <ChatHeader time={this.state.time}/>
                 <MessageList messageList={this.props.messageList}/>
-                <MessageForm addMessage={this.props.addMessage} messageList={this.props.messageList} clearMessages={this.props.clearMessages}/>
+                <MessageForm addMessage={addMsg} messageList={this.props.messageList}/>
             </div>
         );
     }
@@ -50,14 +52,13 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = {
-    addMessage: actions.addNewMessage,
-    clearMessages: actions.clearMessageList
+    fetchMessages: actions.fetchMessages
 };
 
 AppContainer.propTypes = {
+    fetchMessages: PropTypes.func.isRequired,
     messageList: PropTypes.array.isRequired,
-    addMessage: PropTypes.func.isRequired,
-    clearMessages: PropTypes.func.isRequired
+    error: PropTypes.string
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(AppContainer);

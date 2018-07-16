@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 class MessageForm extends React.Component {
-    constructor(props) {
-        super(props);
+    constructor() {
+        super();
         this.state = {
             username: '',
             message: '',
@@ -32,16 +32,16 @@ class MessageForm extends React.Component {
         if(this.state.username && this.state.message) {
             let side = this.chooseSide(this.state.username);
             this.props.addMessage({username: this.state.username, message: this.state.message, side: side});
-            this.setState({
-                username: '',
-                message: '',
-                error: ''
-            });
         } else {
             this.setState({
                 error: 'Error! Empty input.'
             });
         }
+        this.setState({
+            username: '',
+            message: '',
+            error: ''
+        });
     }
 
     handleChange(e) {
@@ -70,13 +70,6 @@ class MessageForm extends React.Component {
                         <span>Send</span>
                         <img width='20' height='20' src={require('../media/mail.png')}/>
                     </button>
-                    {this.props.messageList.length
-                        ?
-                        <button className='btn' onClick={this.props.clearMessages}>
-                            <span>Clear</span>
-                            <img width='20' height='20' src={require('../media/del.png')}/>
-                        </button>
-                        : null}
                 </div>
                 <p>{this.state.error || null}</p>
             </form>
@@ -86,8 +79,7 @@ class MessageForm extends React.Component {
 
 MessageForm.propTypes = {
     messageList: PropTypes.array.isRequired,
-    addMessage: PropTypes.func.isRequired,
-    clearMessages: PropTypes.func.isRequired
+    addMessage: PropTypes.func.isRequired
 };
 
 export default MessageForm;

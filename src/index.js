@@ -5,13 +5,15 @@ import { render } from 'react-dom';
 import AppContainer from './containers/AppContainer';
 import { createStore }  from 'redux'
 import { rootReducer } from './RootReducer';
+import './config';
+import { composeWithDevTools } from 'redux-devtools-extension';
 
 const initialState = {};
 const store = createStore(
     rootReducer,
-    initialState
+    initialState,
+    composeWithDevTools()
 );
-
 
 render(
     <Provider store={store}>
