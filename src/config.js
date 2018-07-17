@@ -26,4 +26,22 @@ function enableListFetching(callback) {
     });
 }
 
+const txtEmail = document.querySelector('.txt-email');
+const txtPassword = document.querySelector('.txt-password');
+const btnLogin = document.querySelector('.btn-login');
+const btnSignup = document.querySelector('.btn-signup');
+const btnLogout = document.querySelector('.btn-logout');
+
+function onLogin() {
+
+}
+
+function onSignup() {
+
+}
+
+function onLogout() {
+
+}
+
  export {addMsg, enableListFetching};

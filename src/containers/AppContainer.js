@@ -4,8 +4,10 @@ import MessageForm from '../components/MessageForm';
 import MessageList from '../components/MessageList';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import * as selectors from '../ducks/msg/selectors';
-import * as actions from '../ducks/msg/actions';
+import * as selectorsMsg from '../ducks/msg/selectors';
+import * as actionsMsg from '../ducks/msg/actions';
+import * as selectorsAuth from '../ducks/auth/selectors';
+import * as actionsAuth from '../ducks/auth/actions';
 import {enableListFetching, addMsg } from "../config";
 
 class AppContainer extends React.Component {
@@ -48,16 +50,24 @@ AppContainer.defaultProps = {
 };
 
 const mapStateToProps = (state) => ({
-    messageList: selectors.selectMessages(state)
+    user: selectorsAuth.selectUser(state),
+    isAuth: selectorsAuth.selectIsAuth(state),
+    messageList: selectorsMsg.selectMessages(state)
 });
 
 const mapDispatchToProps = {
-    fetchMessages: actions.fetchMessages
+    logIn: actionsAuth.logIn,
+    logOut: actionsAuth.logOut,
+    fetchMessages: actionsMsg.fetchMessages
 };
 
 AppContainer.propTypes = {
+    messageList: PropTypes.array.isRequired,
+    isAuth: PropTypes.bool.isRequired,
+    user: PropTypes.string.isRequired,
     fetchMessages: PropTypes.func.isRequired,
-    messageList: PropTypes.array.isRequired
+    logIn: PropTypes.func.isRequired,
+    logOut: PropTypes.func.isRequired
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(AppContainer);

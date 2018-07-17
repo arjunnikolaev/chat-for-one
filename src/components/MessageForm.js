@@ -5,9 +5,7 @@ class MessageForm extends React.Component {
     constructor() {
         super();
         this.state = {
-            username: '',
-            message: '',
-            error: ''
+            message: ''
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -15,16 +13,7 @@ class MessageForm extends React.Component {
     }
 
     chooseSide(name) {
-        let list = this.props.messageList;
-        if(list.length) {
-            let firstMsg = list.find((item) => item.username === name);
-            if(firstMsg) {
-                return firstMsg.side;
-            } else {
-                return list[list.length - 1].side === 'left' ? 'right' : 'left';
-            }
-        }
-        return 'left';
+
     }
 
     handleSubmit(e) {
@@ -33,9 +22,7 @@ class MessageForm extends React.Component {
             let side = this.chooseSide(this.state.username);
             this.props.addMessage({username: this.state.username, message: this.state.message, side: side, time: new Date().toLocaleTimeString().slice(0, -6)});
             this.setState({
-                username: '',
-                message: '',
-                error: ''
+                message: ''
             });
         } else {
             this.setState({
