@@ -57,8 +57,7 @@ const mapDispatchToProps = {
 
 AppContainer.propTypes = {
     fetchMessages: PropTypes.func.isRequired,
-    messageList: PropTypes.array.isRequired,
-    error: PropTypes.string
+    messageList: PropTypes.array.isRequired
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(AppContainer);

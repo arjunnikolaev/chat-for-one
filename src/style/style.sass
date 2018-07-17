@@ -35,21 +35,32 @@ body
     box-shadow: $standard-shadow
     background-color: lightsteelblue
 
-    &::after
-        position: absolute
-        bottom: -23%
-        content: ''
-        border-left: 7px solid transparent
-        border-right: 7px solid transparent
-        border-top: 14px solid lightsteelblue
     &.message_left
         +my-margin(0, auto)
 
-        &::after
+        .time-span::after
             left: 7%
 
     &.message_right
         +my-margin(auto, 0)
 
-        &::after
+        .time-span::after
             right: 7%
+
+.message__body
+    display: flex
+    flex-direction: row
+    justify-content: space-between
+
+
+.time-span
+    font-size: 0.7em
+    color: #666
+    align-self: flex-end
+    &::after
+        position: absolute
+        bottom: -10px
+        content: ''
+        border-left: 7px solid transparent
+        border-right: 7px solid transparent
+        border-top: 14px solid lightsteelblue

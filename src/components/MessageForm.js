@@ -31,7 +31,7 @@ class MessageForm extends React.Component {
         e.preventDefault();
         if(this.state.username && this.state.message) {
             let side = this.chooseSide(this.state.username);
-            this.props.addMessage({username: this.state.username, message: this.state.message, side: side});
+            this.props.addMessage({username: this.state.username, message: this.state.message, side: side, time: new Date().toLocaleTimeString().slice(0, -6)});
         } else {
             this.setState({
                 error: 'Error! Empty input.'
