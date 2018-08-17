@@ -5,13 +5,14 @@ class MessageForm extends React.Component {
     constructor() {
         super();
         this.state = {
-            username: '',
+            username: 'Arjun',
             message: '',
             error: ''
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.chooseSide = this.chooseSide.bind(this);
+        this.handleMessageKeypress = this.handleMessageKeypress.bind(this);
     }
 
     chooseSide(name) {
@@ -29,11 +30,11 @@ class MessageForm extends React.Component {
 
     handleSubmit(e) {
         e.preventDefault();
-        if(this.state.username && this.state.message) {
+        if(this.state.message.trim()) {
             let side = this.chooseSide(this.state.username);
-            this.props.addMessage({username: this.state.username, message: this.state.message, side: side, time: new Date().toLocaleTimeString().slice(0, -6)});
+            this.props.addMessage({username: this.state.username.trim(), message: this.state.message.trim(), side: side, time: new Date().toLocaleTimeString().slice(0, -6)});
             this.setState({
-                username: '',
+                username: 'Arjun',
                 message: '',
                 error: ''
             });
@@ -49,22 +50,25 @@ class MessageForm extends React.Component {
         this.setState({[e.target.name]: e.target.value});
     }
 
+    handleMessageKeypress(e) {
+        if(e.key === 'Enter') {
+            e.preventDefault();
+            if(e.ctrlKey) {
+                console.log('yes');
+                this.setState((prevState, props) => ({
+                    message: prevState.message + '\n'
+                }));
+            } else {
+                this.handleSubmit(e);
+            }
+        }
+    }
+
     render() {
         return (
             <form onSubmit={this.handleSubmit}>
                 <p>
-                    <label htmlFor="username">
-                        Name:
-                    </label>
-                    <br/>
-                    <input className='input-field' type="text" name="username" id='username' value={this.state.username} onChange={this.handleChange}/>
-                </p>
-                <p>
-                    <label htmlFor="message">
-                        Message:
-                    </label>
-                    <br/>
-                    <textarea className='input-field' rows='5' cols='35' id='message' name="message" value={this.state.message} onChange={this.handleChange}></textarea>
+                    <textarea onKeyPress={this.handleMessageKeypress} className='input-field msg' rows='5' cols='35' id='message' name="message" placeholder='Type your message' value={this.state.message} onChange={this.handleChange}></textarea>
                 </p>
                 <div className='buttons'>
                     <button className='btn' type="submit">

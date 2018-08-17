@@ -55,7 +55,7 @@ module.exports = {
                     test: /\.(jpg|png|svg|ico)$/,
                     loader: 'file-loader',
                     options: {
-                        name: 'images/[name].[ext]'
+                        name: 'media/[name].[ext]'
                     }
                 }
 

@@ -7,6 +7,8 @@ import { connect } from 'react-redux';
 import * as selectors from '../ducks/msg/selectors';
 import * as actions from '../ducks/msg/actions';
 import {enableListFetching, addMsg } from "../config";
+import SignUpForm from '../components/SignUpForm';
+import SignInForm from '../components/SignInForm';
 
 class AppContainer extends React.Component {
     constructor() {
@@ -35,6 +37,8 @@ class AppContainer extends React.Component {
     render() {
         return (
             <div>
+                <SignUpForm/>
+                <SignInForm/>
                 <ChatHeader time={this.state.time}/>
                 <MessageList messageList={this.props.messageList}/>
                 <MessageForm addMessage={addMsg} messageList={this.props.messageList}/>
